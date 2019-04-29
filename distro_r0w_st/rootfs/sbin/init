@@ -1,0 +1,37 @@
+#!/bin/sh
+mount -t sysfs sysfs /sys
+mount -t proc proc /proc
+mount -t tmpfs tmpfs /run -o size=32M
+rngd
+modprobe brcmfmac
+sleep 1
+ifup -a
+sleep 1
+/dnsmasq -u root --log-facility=-
+/hostapd -B /etc/hostapd/hostapd.conf
+./stcam &
+setsid cttyhack sh &
+
+while [ 1 = 1 ]
+do
+
+pidof hostapd > /dev/null
+if [[ $? -ne 0 ]] ; then
+ echo "hostapd closed"
+ exit
+fi
+
+pidof dnsmasq > /dev/null
+if [[ $? -ne 0 ]] ; then
+ echo "dnsmasq closed"
+ exit
+fi
+
+pidof stcam > /dev/null
+if [[ $? -ne 0 ]] ; then
+ echo "stcam closed"
+ exit
+fi
+
+sleep 4
+done

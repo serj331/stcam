@@ -1,0 +1,5 @@
+kernel/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko:
+kernel/net/wireless/cfg80211.ko: kernel/net/rfkill/rfkill.ko
+kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko: kernel/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko kernel/net/wireless/cfg80211.ko kernel/net/rfkill/rfkill.ko
+kernel/net/rfkill/rfkill.ko:
+kernel/v4l2loopback.ko:

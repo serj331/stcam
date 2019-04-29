@@ -1,0 +1,1 @@
+./Release/main.cpp.o ./Release/iron_pallet.c.o ./Release/httpst.c.o
