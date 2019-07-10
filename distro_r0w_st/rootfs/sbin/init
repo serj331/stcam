@@ -2,36 +2,41 @@
 mount -t sysfs sysfs /sys
 mount -t proc proc /proc
 mount -t tmpfs tmpfs /run -o size=32M
+mkdir -p /dev/pts
+mount -t devpts devpts /dev/pts
 rngd
 modprobe brcmfmac
 sleep 1
 ifup -a
 sleep 1
-/dnsmasq -u root --log-facility=-
-/hostapd -B /etc/hostapd/hostapd.conf
-./stcam &
+#wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant.conf -B
+/usr/sbin/dnsmasq -u root --log-facility=-
+/usr/sbin/hostapd -B /etc/hostapd/hostapd.conf
+/stcam2 &
+/usr/sbin/sshd
 setsid cttyhack sh &
 
 while [ 1 = 1 ]
 do
 
-pidof hostapd > /dev/null
-if [[ $? -ne 0 ]] ; then
- echo "hostapd closed"
- exit
-fi
+#pidof hostapd > /dev/null
+#if [[ $? -ne 0 ]] ; then
+# echo "hostapd closed"
+# exit
+#fi
 
-pidof dnsmasq > /dev/null
-if [[ $? -ne 0 ]] ; then
- echo "dnsmasq closed"
- exit
-fi
+#pidof dnsmasq > /dev/null
+#if [[ $? -ne 0 ]] ; then
+# echo "dnsmasq closed"
+# exit
+#fi
 
-pidof stcam > /dev/null
-if [[ $? -ne 0 ]] ; then
- echo "stcam closed"
- exit
-fi
+#pidof rpi_stcam_sp > /dev/null
+#if [[ $? -ne 0 ]] ; then
+# echo "stcam closed"
+# exit
+#fi
 
 sleep 4
 done
+

@@ -1,8 +1,18 @@
 auto lo
 iface lo inet loopback
 
+# wifi soft-AP settings.  hostapd
 auto wlan0
 iface wlan0 inet static
 address 192.168.0.1
 network 192.168.0.0
+gateway 192.168.0.1
 netmask 255.255.255.0
+
+# wifi client sett. wpa_supplicant
+#auto wlan0
+#iface wlan0 inet static
+#address 192.168.201.1
+#gateway 192.168.1.1
+#netmask 255.255.255.0
+
